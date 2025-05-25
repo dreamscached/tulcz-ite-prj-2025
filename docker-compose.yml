@@ -1,0 +1,34 @@
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    env_file: .env.local
+    environment:
+      REDIS_CONN_URL: "redis://redis:6379"
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  dash:
+    build:
+      context: .
+      dockerfile: Dockerfile.dash
+    environment:
+      REDIS_CONN_URL: "redis://redis:6379"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+volumes:
+  redis-data:

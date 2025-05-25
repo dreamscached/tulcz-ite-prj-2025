@@ -1,5 +1,6 @@
-FROM python:3.13-alpine
+FROM python:3.12-alpine
 ADD bot /app/bot
+ADD prompt /app/prompt
 ADD requirements.txt /app
 
 WORKDIR /app
