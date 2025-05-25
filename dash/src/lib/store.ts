@@ -1,7 +1,12 @@
 import { createClient } from "redis";
+import { building } from "$app/environment";
 
-export const redis = createClient({ url: process.env.REDIS_CONN_URL });
-await redis.connect();
+export let redis: ReturnType<typeof createClient> | undefined;
+
+if (!building) {
+    redis = createClient({ url: process.env.REDIS_CONN_URL });
+    await redis.connect();
+}
 
 export interface Event {
     sender_id: string;
@@ -17,6 +22,6 @@ export interface Event {
 const KEY_EVENTS_LIST = "tpb_events_list";
 
 export async function getEvents(after: number): Promise<Event[]> {
-    const res = await redis.zRangeByScore(KEY_EVENTS_LIST, after, "+inf");
+    const res = await redis!.zRangeByScore(KEY_EVENTS_LIST, after, "+inf");
     return res.map((it) => JSON.parse(it)) as unknown as Event[];
 }

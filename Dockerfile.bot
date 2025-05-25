@@ -1,0 +1,8 @@
+FROM python:3.13-alpine
+ADD bot /app/bot
+ADD requirements.txt /app
+
+WORKDIR /app
+RUN pip install --no-cache-dir -U -r requirements.txt
+
+CMD [ "python", "-m", "bot" ]

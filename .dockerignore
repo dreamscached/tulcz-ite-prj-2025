@@ -1,0 +1,7 @@
+.venv
+bot/__pycache__
+dash/.svelte-kit
+dash/.yarn
+!dash/.yarn/releases
+dash/build
+dash/node_modules

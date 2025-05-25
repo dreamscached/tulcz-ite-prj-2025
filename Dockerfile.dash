@@ -1,0 +1,11 @@
+FROM node:24-alpine AS build
+ADD dash /build
+
+WORKDIR /build
+RUN corepack enable && yarn install && yarn prepare && yarn build
+
+FROM node:24-alpine
+COPY --from=build /build/build /app
+
+WORKDIR /app
+CMD ["node", "/app/index.js"]
