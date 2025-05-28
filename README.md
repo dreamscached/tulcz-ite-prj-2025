@@ -21,6 +21,8 @@ The goal of the project is to develop a Discord bot that automatically detects t
 - `paper/` – Thesis text and documentation (LaTeX).
 - `prompt/` – System prompts for LLM-based detection.
 - `Notebook.ipynb` – Experimental notebooks for data processing and modeling.
+- `Paper.pdf` – Project documentation paper.
+- `Presentation.pdf` – Project presentation.
 - `docker-compose.yml` – Docker deployment configuration.
 
 ## Authors
